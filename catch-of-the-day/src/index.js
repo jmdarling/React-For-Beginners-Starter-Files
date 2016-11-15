@@ -1,5 +1,7 @@
 'use strict'
 
+import './css/style.css'
+
 import React from 'react'
 import {render} from 'react-dom'
 
