@@ -25,6 +25,8 @@ class StorePicker extends Component {
 
   onStorePickerSubmitted (event) {
     event.preventDefault()
+
+    this.context.router.transitionTo(`/store/${this.state.storeNameInput}`)
   }
 
   render () {
@@ -38,6 +40,10 @@ class StorePicker extends Component {
       </form>
     )
   }
+}
+
+StorePicker.contextTypes = {
+  router: React.PropTypes.object
 }
 
 export default StorePicker
