@@ -7,6 +7,22 @@ import Inventory from './Inventory'
 import Order from './Order'
 
 class App extends Component {
+  constructor () {
+    super()
+
+    this.state = {
+      fish: []
+    }
+
+    this.onAddFish = this.onAddFish.bind(this)
+  }
+
+  onAddFish (fish) {
+    this.setState({
+      'fish': this.state.fish.concat(fish)
+    })
+  }
+
   render () {
     return (
       <div className='catch-of-the-day'>
@@ -14,7 +30,7 @@ class App extends Component {
           <Header tagline='Fresh Seafood Market' />
         </div>
         <Order />
-        <Inventory />
+        <Inventory onAddFish={this.onAddFish} />
       </div>
     )
   }
