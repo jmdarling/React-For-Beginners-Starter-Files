@@ -44,6 +44,7 @@ class Inventory extends Component {
       <div>
         <h2>Inventory</h2>
         <AddFishForm onChange={this.onChangeAddFishForm} onSubmit={this.onSubmitAddFishForm} value={this.state.addFishForm} />
+        <button onClick={this.props.onClickLoadSampleFishes}>Load sample fishes</button>
       </div>
     )
   }
