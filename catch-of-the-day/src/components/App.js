@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Fish from './Fish'
+import firebase from './../firebase'
 import Header from './Header'
 import Inventory from './Inventory'
 import Order from './Order'
@@ -18,6 +19,17 @@ class App extends Component {
     this.onAddFish = this.onAddFish.bind(this)
     this.onAddToOrder = this.onAddToOrder.bind(this)
     this.onClickLoadSampleFishes = this.onClickLoadSampleFishes.bind(this)
+  }
+
+  componentWillMount () {
+    this.firebaseBindingRef = firebase.syncState(`store/${this.props.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    })
+  }
+
+  compnentWillUnmount () {
+    firebase.removeBinding(this.firebaseBindingRef)
   }
 
   onAddFish (fish) {
