@@ -1,5 +1,3 @@
-'use strict'
-
 import React, { Component } from 'react'
 
 import Fish from './Fish'
@@ -13,7 +11,7 @@ class App extends Component {
     super()
 
     this.state = {
-      fish: [],
+      fishes: [],
       order: []
     }
 
@@ -23,8 +21,11 @@ class App extends Component {
   }
 
   onAddFish (fish) {
+    const currentState = [...this.state.fishes]
+    const newState = currentState.concat(fish)
+
     this.setState({
-      'fish': this.state.fish.concat(fish)
+      fishes: newState
     })
   }
 
@@ -38,8 +39,10 @@ class App extends Component {
   }
 
   onClickLoadSampleFishes () {
+    const newState = sampleFishes
+
     this.setState({
-      fish: sampleFishes
+      fishes: newState
     })
   }
 
@@ -49,10 +52,10 @@ class App extends Component {
         <div className='menu'>
           <Header tagline='Fresh Seafood Market' />
           <ul className='list-of-fishes'>
-            {this.state.fish.map((fish, index) => <Fish key={index} index={index} details={fish} onAddToOrder={this.onAddToOrder} />)}
+            {this.state.fishes.map((fish, index) => <Fish key={index} index={index} details={fish} onAddToOrder={this.onAddToOrder} />)}
           </ul>
         </div>
-        <Order />
+        <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory onAddFish={this.onAddFish} onClickLoadSampleFishes={this.onClickLoadSampleFishes} />
       </div>
     )

@@ -1,5 +1,3 @@
-'use strict'
-
 import './css/style.css'
 
 import React from 'react'
