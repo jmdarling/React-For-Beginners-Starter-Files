@@ -8,8 +8,10 @@ import Order from './Order'
 import sampleFishes from './../sample-fishes'
 
 class App extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+
+    this.localStorageKey = `store.${props.params.storeId}`
 
     this.state = {
       fishes: [],
@@ -26,10 +28,23 @@ class App extends Component {
       context: this,
       state: 'fishes'
     })
+
+    const storedOrder = window.localStorage.getItem(`${this.localStorageKey}.order`)
+    if (storedOrder == null) {
+      return
+    }
+
+    this.setState({
+      order: JSON.parse(storedOrder)
+    })
   }
 
-  compnentWillUnmount () {
+  componentWillUnmount () {
     firebase.removeBinding(this.firebaseBindingRef)
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    window.localStorage.setItem(`${this.localStorageKey}.order`, JSON.stringify(nextState.order))
   }
 
   onAddFish (fish) {
